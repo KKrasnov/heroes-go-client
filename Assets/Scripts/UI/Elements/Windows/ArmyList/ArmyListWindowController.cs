@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace Assets.Scripts.UI
 {
@@ -14,7 +15,7 @@ namespace Assets.Scripts.UI
 
             _view.OnSquadSelectedEvent += OnSquadSelected;
 
-            _army = CompositionRoot.Container.Resolve<IPlayerDataService>().GetArmyData();
+            _army = ProjectContext.Instance.Container.Resolve<IPlayerDataService>().GetArmyData();
 
             _view.UpdateView(new ArmyListWindowData()
             {
@@ -25,7 +26,7 @@ namespace Assets.Scripts.UI
 
         private void OnSquadSelected(HeroData hero)
         {
-            CompositionRoot.Container.Resolve<UIManager>().OpenWindow(WindowType.SquadInfo, hero.ID);
+            ProjectContext.Instance.Container.Resolve<UIManager>().OpenWindow(WindowType.SquadInfo, hero.ID);
         }
     }
 }

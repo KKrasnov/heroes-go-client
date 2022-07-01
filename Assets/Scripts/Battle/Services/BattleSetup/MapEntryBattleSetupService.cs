@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts.UI;
+using Zenject;
 
 public class MapEntryBattleSetupService : IMapEntryBattleSetupService
 {
@@ -16,15 +17,15 @@ public class MapEntryBattleSetupService : IMapEntryBattleSetupService
 
     public MapEntryBattleSetupService()
     {
-        _fastBattleService = CompositionRoot.Container.Resolve<IFastBattleService>();
-        _manualBattleService = CompositionRoot.Container.Resolve<IManualBattleService>();
+        _fastBattleService = ProjectContext.Instance.Container.Resolve<IFastBattleService>();
+        _manualBattleService = ProjectContext.Instance.Container.Resolve<IManualBattleService>();
     }
 
     public void SetupBattle(GameMapEntryData entry)
     {
         _cachedEntry = entry;
-        _cachedPlayerArmy = CompositionRoot.Container.Resolve<IPlayerDataService>().GetArmyData();
-        CompositionRoot.Container.Resolve<UIManager>().OpenWindow(WindowType.FightLobby, new FightLobbyWindowData()
+        _cachedPlayerArmy = ProjectContext.Instance.Container.Resolve<IPlayerDataService>().GetArmyData();
+        ProjectContext.Instance.Container.Resolve<UIManager>().OpenWindow(WindowType.FightLobby, new FightLobbyWindowData()
         {
             AllyArmy = _cachedPlayerArmy,
             EnemyArmy = entry.Garrison,
@@ -35,32 +36,32 @@ public class MapEntryBattleSetupService : IMapEntryBattleSetupService
 
     private void OnFastBattleSelected()
     {
-        CompositionRoot.Container.Resolve<IGameMapService>().RegisterEntryBattle(_cachedEntry.EntryId);
+        ProjectContext.Instance.Container.Resolve<IGameMapService>().RegisterEntryBattle(_cachedEntry.EntryId);
         _fastBattleService.StartBattle(new BattleSetupData(_cachedPlayerArmy, _cachedEntry.Garrison), OnBattleEnded);
     }
 
     private void OnManualBattleSelected()
     {
-        CompositionRoot.Container.Resolve<IGameMapService>().RegisterEntryBattle(_cachedEntry.EntryId);
+        ProjectContext.Instance.Container.Resolve<IGameMapService>().RegisterEntryBattle(_cachedEntry.EntryId);
         _fastBattleService.StartBattle(new BattleSetupData(_cachedPlayerArmy, _cachedEntry.Garrison), OnBattleEnded);
     }
 
     private void OnBattleEnded(BattleResultData result)
     {
         _cachedResult = result;
-        _cachedReward = CompositionRoot.Container.Resolve<IGameMapService>().CommitEntryBattleResult(_cachedEntry.EntryId, _cachedResult);
-        CompositionRoot.Container.Resolve<UIManager>().OpenWindow(WindowType.BattleResult, new BattleResultWindowData(_cachedResult, OnBattleResultViewed));
+        _cachedReward = ProjectContext.Instance.Container.Resolve<IGameMapService>().CommitEntryBattleResult(_cachedEntry.EntryId, _cachedResult);
+        ProjectContext.Instance.Container.Resolve<UIManager>().OpenWindow(WindowType.BattleResult, new BattleResultWindowData(_cachedResult, OnBattleResultViewed));
         Debug.Log(result.Ally.SurvivedArmy.ArmyForceRating);
     }
 
     private void OnBattleResultViewed()
     {
-        CompositionRoot.Container.Resolve<UIManager>().OpenWindow(WindowType.ClaimReward, new ClaimRewardWindowData(_cachedReward, OnRewardClaimed));
+        ProjectContext.Instance.Container.Resolve<UIManager>().OpenWindow(WindowType.ClaimReward, new ClaimRewardWindowData(_cachedReward, OnRewardClaimed));
     }
 
     private void OnRewardClaimed()
     {
-        CompositionRoot.Container.Resolve<UIManager>().CloseWindow(WindowType.FightLobby);
-        CompositionRoot.Container.Resolve<UIManager>().CloseWindow(WindowType.GameMapEntryDialog);
+        ProjectContext.Instance.Container.Resolve<UIManager>().CloseWindow(WindowType.FightLobby);
+        ProjectContext.Instance.Container.Resolve<UIManager>().CloseWindow(WindowType.GameMapEntryDialog);
     }
 }

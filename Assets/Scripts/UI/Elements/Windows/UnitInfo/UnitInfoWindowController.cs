@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace Assets.Scripts.UI
 {
@@ -12,13 +13,13 @@ namespace Assets.Scripts.UI
 
             UnitConfiguration unitConfig;
 
-            IUnitsConfigurationService configService = CompositionRoot.Container.Resolve<IUnitsConfigurationService>();
+            IUnitsConfigurationService configService = ProjectContext.Instance.Container.Resolve<IUnitsConfigurationService>();
             
             switch (_windowData.Occupancy)
             {
                 case UnitInfoWindowControllerData.UnitOccupancy.Draft:
                 case UnitInfoWindowControllerData.UnitOccupancy.Squad:
-                    unitConfig = configService.GetUnitConfiguration(CompositionRoot.Container.Resolve<IPlayerDataService>().GetUnitData(_windowData.ID).ID);
+                    unitConfig = configService.GetUnitConfiguration(ProjectContext.Instance.Container.Resolve<IPlayerDataService>().GetUnitData(_windowData.ID).ID);
                     break;
                 case UnitInfoWindowControllerData.UnitOccupancy.None:
                 default:
@@ -37,14 +38,14 @@ namespace Assets.Scripts.UI
 
         private void OnUnitMovedToDraftHandler()
         {
-            CompositionRoot.Container.Resolve<UIManager>().CloseWindow(this);
+            ProjectContext.Instance.Container.Resolve<UIManager>().CloseWindow(this);
             if (_windowData.OnViewed != null)
                 _windowData.OnViewed(true);
         }
 
         private void OnUnitDismissedHandler()
         {
-            CompositionRoot.Container.Resolve<UIManager>().CloseWindow(this);
+            ProjectContext.Instance.Container.Resolve<UIManager>().CloseWindow(this);
             if (_windowData.OnViewed != null)
                 _windowData.OnViewed(true);
         }

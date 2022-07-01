@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace Assets.Scripts.UI
 {
@@ -35,7 +36,7 @@ namespace Assets.Scripts.UI
 
         protected virtual void OnCloseWindowClickHandler()
         {
-            CompositionRoot.Container.Resolve<UIManager>().CloseWindow(this);
+            ProjectContext.Instance.Container.Resolve<UIManager>().CloseWindow(this);
         }
     }
 

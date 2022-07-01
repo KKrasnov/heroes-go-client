@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using General;
+using Zenject;
 
 public class UnitData : IIdentifiable
 {
@@ -11,7 +12,7 @@ public class UnitData : IIdentifiable
         get
         {
             if (_configuration == null)
-                _configuration = CompositionRoot.Container.Resolve<IUnitsConfigurationService>().GetUnitConfiguration(ID);
+                _configuration = ProjectContext.Instance.Container.Resolve<IUnitsConfigurationService>().GetUnitConfiguration(ID);
             return _configuration;
         }
     }

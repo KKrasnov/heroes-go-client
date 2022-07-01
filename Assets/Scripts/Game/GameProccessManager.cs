@@ -6,7 +6,7 @@ public class GameProccessManager : MonoBehaviour
 {
     private void Awake()
     {
-        //CompositionRoot.Container.Resolve<IGameMapService>().GetNearbyEntries();
+        //ProjectContext.Instance.Container.Resolve<IGameMapService>().GetNearbyEntries();
     }
 
 

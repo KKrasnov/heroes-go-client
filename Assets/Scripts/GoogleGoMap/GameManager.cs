@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Zenject;
 
 public class GameManager : Singleton<GameManager> {
 
@@ -31,7 +32,7 @@ public class GameManager : Singleton<GameManager> {
 		Time.timeScale = 1;
 		playerStatus = PlayerStatus.TiedToDevice;
 
-        player_loc = CompositionRoot.Container.Resolve<IPlayerLocationService>();
+        player_loc = ProjectContext.Instance.Container.Resolve<IPlayerLocationService>();
 		newMap.GetComponent<MeshRenderer>().enabled = false;
 		newMap.SetActive (false);
 

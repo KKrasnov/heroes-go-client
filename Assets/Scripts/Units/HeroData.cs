@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using General;
+using Zenject;
 
 public class HeroData : IIdentifiable
 {
@@ -11,7 +12,7 @@ public class HeroData : IIdentifiable
         get
         {
             if (_configuration == null)
-                _configuration = CompositionRoot.Container.Resolve<IUnitsConfigurationService>().GetHeroConfiguration(ID);
+                _configuration = ProjectContext.Instance.Container.Resolve<IUnitsConfigurationService>().GetHeroConfiguration(ID);
             return _configuration;
         }
     }

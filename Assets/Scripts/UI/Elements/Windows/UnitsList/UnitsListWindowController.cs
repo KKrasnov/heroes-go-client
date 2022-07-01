@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace Assets.Scripts.UI
 {
@@ -12,7 +13,7 @@ namespace Assets.Scripts.UI
             base.Initialize(view);
 
             UnitsListWindowData data = new UnitsListWindowData();
-            data.Units = new List<UnitData>(CompositionRoot.Container.Resolve<IPlayerDataService>().GetUnitsDraft());
+            data.Units = new List<UnitData>(ProjectContext.Instance.Container.Resolve<IPlayerDataService>().GetUnitsDraft());
 
             _view.OnUnitSelectedEvent += OnUnitSelectedHandler;
             _view.UpdateView(data);
@@ -23,7 +24,7 @@ namespace Assets.Scripts.UI
             UnitInfoWindowControllerData windowData = new UnitInfoWindowControllerData();
             windowData.ID = instanceId;
             windowData.Occupancy = UnitInfoWindowControllerData.UnitOccupancy.Draft;
-            CompositionRoot.Container.Resolve<UIManager>().OpenWindow(WindowType.UnitInfo, windowData);
+            ProjectContext.Instance.Container.Resolve<UIManager>().OpenWindow(WindowType.UnitInfo, windowData);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace Assets.Scripts.UI
 {
@@ -13,7 +14,7 @@ namespace Assets.Scripts.UI
             base.Initialize(view);
             _view.OnHeroSelectedEvent += _view_OnHeroSelectedHandler;
 
-            _army = CompositionRoot.Container.Resolve<IPlayerDataService>().GetArmyData();
+            _army = ProjectContext.Instance.Container.Resolve<IPlayerDataService>().GetArmyData();
             _view.ApplyView(_army);
         }
 

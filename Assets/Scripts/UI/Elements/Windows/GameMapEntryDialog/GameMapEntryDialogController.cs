@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace Assets.Scripts.UI
 {
@@ -18,7 +19,7 @@ namespace Assets.Scripts.UI
         public override void ApplyData(object data)
         {
             base.ApplyData(data);
-            _entryData = CompositionRoot.Container.Resolve<IGameMapService>().GetEntryData(_windowData);
+            _entryData = ProjectContext.Instance.Container.Resolve<IGameMapService>().GetEntryData(_windowData);
             _view.UpdateView(_entryData);
             ShowSpeech("main");
         }
@@ -33,7 +34,7 @@ namespace Assets.Scripts.UI
 
         public override void Dispose()
         {
-            CompositionRoot.Container.Resolve<IGameMapManager>().RefreshMapEntry(_windowData);
+            ProjectContext.Instance.Container.Resolve<IGameMapManager>().RefreshMapEntry(_windowData);
             base.Dispose();
         }
 
@@ -51,7 +52,7 @@ namespace Assets.Scripts.UI
 
         public void StartFight()
         {
-            CompositionRoot.Container.Resolve<IMapEntryBattleSetupService>().SetupBattle(_entryData);
+            ProjectContext.Instance.Container.Resolve<IMapEntryBattleSetupService>().SetupBattle(_entryData);
         }
 
         public void Leave()

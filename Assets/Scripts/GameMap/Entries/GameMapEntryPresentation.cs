@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class GameMapEntryPresentation : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class GameMapEntryPresentation : MonoBehaviour
 
         _mapObjectPosition.setPositionOnMap(new GeoPoint(_cachedEntryData.Lat_d, _cachedEntryData.Lon_d));
 
-        _entryViewImg.sprite = CompositionRoot.Container.Resolve<IGameMapEntriesViewHelper>().GetSpriteForEntry(_cachedEntryData);
+        _entryViewImg.sprite = ProjectContext.Instance.Container.Resolve<IGameMapEntriesViewHelper>().GetSpriteForEntry(_cachedEntryData);
     }
 
     public void Select()

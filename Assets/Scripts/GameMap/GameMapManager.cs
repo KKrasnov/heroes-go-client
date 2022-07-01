@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 
 using Assets.Scripts.UI;
+using Zenject;
 
 public class GameMapManager : MonoBehaviour, IGameMapManager
 {
@@ -13,7 +14,9 @@ public class GameMapManager : MonoBehaviour, IGameMapManager
     [SerializeField]
     private Transform _mapObjectsParent;
 
+    [Inject]
     private IPlayerLocationService _playerLocationService;
+    [Inject]
     private IGameMapService _gameMapService;
 
 
@@ -37,8 +40,6 @@ public class GameMapManager : MonoBehaviour, IGameMapManager
 
     private void Awake()
     {
-        _playerLocationService = CompositionRoot.Container.Resolve<IPlayerLocationService>();
-        _gameMapService = CompositionRoot.Container.Resolve<IGameMapService>();
         _timeSinceLastStaticUpdate = MAP_INACTIVE_UPDATE_INTERVAL_STATIC;
         _timeSinceLastDynamicUpdate = MAP_INACTIVE_UPDATE_INTERVAL_DYNAMIC;
         StartCoroutine(ProccessGameMapStaticUpdating());

@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using UnityEngine;
 using UnityEngine.UI;
 using Assets.Scripts.Utils;
+using Zenject;
 
 namespace Assets.Scripts.UI
 {
@@ -46,7 +47,7 @@ namespace Assets.Scripts.UI
         protected override void Awake()
         {
             base.Awake();
-            CompositionRoot.Container.Resolve<UIManager>().RegisterActiveWindow(_tabView);
+            ProjectContext.Instance.Container.Resolve<UIManager>().RegisterActiveWindow(_tabView);
             _selectButton.onClick.AddListener(OnSelectButtonClick);
         }
 

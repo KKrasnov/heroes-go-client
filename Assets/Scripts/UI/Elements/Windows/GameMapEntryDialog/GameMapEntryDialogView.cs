@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Assets.Scripts.UI
 {
@@ -43,9 +44,9 @@ namespace Assets.Scripts.UI
         {
             base.UpdateView(data);
             _cachedData = data;
-            _cachedDialog = CompositionRoot.Container.Resolve<IDialogService>().GetDialogData(_cachedData.EntryDialogId);
+            _cachedDialog = ProjectContext.Instance.Container.Resolve<IDialogService>().GetDialogData(_cachedData.EntryDialogId);
 
-            ILocalizationService localizationService = CompositionRoot.Container.Resolve<ILocalizationService>();
+            ILocalizationService localizationService = ProjectContext.Instance.Container.Resolve<ILocalizationService>();
 
             _entryTitleLbl.text = localizationService.GetLocalizedText(_cachedData.EntryNameKey);
             _heroPreview.Apply(_cachedData.Garrison.Heroes[0]);
@@ -56,7 +57,7 @@ namespace Assets.Scripts.UI
             ClearDialogOptions();
             DialogSpeechData speech = _cachedDialog.Speeches[speechKey];
 
-            _dialogTextLbl.text = CompositionRoot.Container.Resolve<ILocalizationService>().GetLocalizedText(speech.TextKey);
+            _dialogTextLbl.text = ProjectContext.Instance.Container.Resolve<ILocalizationService>().GetLocalizedText(speech.TextKey);
 
             foreach (DialogOptionData option in speech.Options)
             {

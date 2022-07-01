@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace Assets.Scripts.UI
 {
@@ -12,7 +13,7 @@ namespace Assets.Scripts.UI
             base.ApplyData(data);
 
             SquadInfoWindowData viewData = new SquadInfoWindowData();
-            viewData.Hero = CompositionRoot.Container.Resolve<IPlayerDataService>().GetHeroData(_windowData);
+            viewData.Hero = ProjectContext.Instance.Container.Resolve<IPlayerDataService>().GetHeroData(_windowData);
 
             _view.OnUnitSelectedEvent += OnUnitSelectedHandler;
             _view.UpdateView(viewData);
@@ -24,7 +25,7 @@ namespace Assets.Scripts.UI
             windowData.ID = instanceId;
             windowData.Occupancy = UnitInfoWindowControllerData.UnitOccupancy.Squad;
             windowData.OnViewed = OnUnitInfoViewed;
-            CompositionRoot.Container.Resolve<UIManager>().OpenWindow(WindowType.UnitInfo, windowData);
+            ProjectContext.Instance.Container.Resolve<UIManager>().OpenWindow(WindowType.UnitInfo, windowData);
         }
 
         private void OnUnitInfoViewed(bool needToUpdate)
@@ -32,7 +33,7 @@ namespace Assets.Scripts.UI
             if(needToUpdate)
             {
                 SquadInfoWindowData viewData = new SquadInfoWindowData();
-                viewData.Hero = CompositionRoot.Container.Resolve<IPlayerDataService>().GetHeroData(_windowData);
+                viewData.Hero = ProjectContext.Instance.Container.Resolve<IPlayerDataService>().GetHeroData(_windowData);
                 _view.UpdateView(viewData);
             }
         }

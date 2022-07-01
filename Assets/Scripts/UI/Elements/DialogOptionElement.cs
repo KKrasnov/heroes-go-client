@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Assets.Scripts.UI
 {
@@ -22,7 +23,7 @@ namespace Assets.Scripts.UI
         {
             _cachedData = data;
             _OnSelect += onSelect;
-            _optionTextLbl.text = CompositionRoot.Container.Resolve<ILocalizationService>().GetLocalizedText(_cachedData.AnswerKey);
+            _optionTextLbl.text = ProjectContext.Instance.Container.Resolve<ILocalizationService>().GetLocalizedText(_cachedData.AnswerKey);
         }
 
         public void Select()

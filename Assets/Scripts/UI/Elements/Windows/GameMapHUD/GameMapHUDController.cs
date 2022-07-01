@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace Assets.Scripts.UI
 {
@@ -15,7 +16,7 @@ namespace Assets.Scripts.UI
 
         private void OpenArmyClickHandler()
         {
-            CompositionRoot.Container.Resolve<UIManager>().OpenWindow(WindowType.ArmyList);
+            ProjectContext.Instance.Container.Resolve<UIManager>().OpenWindow(WindowType.ArmyList);
         }
     }
 }

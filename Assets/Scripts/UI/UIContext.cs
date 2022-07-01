@@ -14,7 +14,7 @@ namespace Assets.Scripts.UI
 
         private void RegisterActiveWindows()
         {
-            UIManager uiManager = ProjectContext.Instance.Container.Resolve<UIManager>();
+            IUIManager uiManager = ProjectContext.Instance.Container.Resolve<IUIManager>();
             BaseWindowView[] activeWindows = FindObjectsOfType<BaseWindowView>();
             foreach (BaseWindowView view in activeWindows)
             {

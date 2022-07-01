@@ -47,7 +47,7 @@ namespace Assets.Scripts.UI
         protected override void Awake()
         {
             base.Awake();
-            ProjectContext.Instance.Container.Resolve<UIManager>().RegisterActiveWindow(_tabView);
+            ProjectContext.Instance.Container.Resolve<IUIManager>().RegisterActiveWindow(_tabView);
             _selectButton.onClick.AddListener(OnSelectButtonClick);
         }
 

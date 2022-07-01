@@ -36,7 +36,7 @@ namespace Assets.Scripts.UI
 
         protected virtual void OnCloseWindowClickHandler()
         {
-            ProjectContext.Instance.Container.Resolve<UIManager>().CloseWindow(this);
+            ProjectContext.Instance.Container.Resolve<IUIManager>().CloseWindow(this);
         }
     }
 

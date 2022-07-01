@@ -6,7 +6,7 @@ using Assets.Scripts.Utils;
 
 namespace Assets.Scripts.UI
 {
-    public class UIManager
+    public class UIManager : IUIManager
     {
         private WindowsMap _windowsMap = new WindowsMap();
         private List<ValuePair<WindowType, IWindowController>> _activeWindows = new List<ValuePair<WindowType, IWindowController>>();

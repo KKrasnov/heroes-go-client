@@ -150,6 +150,6 @@ public class GameMapManager : MonoBehaviour, IGameMapManager
 
     private void OnEntrySelected(GameMapEntryData entry)
     {
-        ProjectContext.Instance.Container.Resolve<UIManager>().OpenWindow(WindowType.GameMapEntryDialog, entry.EntryId);
+        ProjectContext.Instance.Container.Resolve<IUIManager>().OpenWindow(WindowType.GameMapEntryDialog, entry.EntryId);
     }
 }

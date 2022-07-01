@@ -25,7 +25,7 @@ namespace Assets.Scripts.UI
             windowData.ID = instanceId;
             windowData.Occupancy = UnitInfoWindowControllerData.UnitOccupancy.Squad;
             windowData.OnViewed = OnUnitInfoViewed;
-            ProjectContext.Instance.Container.Resolve<UIManager>().OpenWindow(WindowType.UnitInfo, windowData);
+            ProjectContext.Instance.Container.Resolve<IUIManager>().OpenWindow(WindowType.UnitInfo, windowData);
         }
 
         private void OnUnitInfoViewed(bool needToUpdate)

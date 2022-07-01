@@ -24,7 +24,7 @@ namespace Assets.Scripts.UI
             UnitInfoWindowControllerData windowData = new UnitInfoWindowControllerData();
             windowData.ID = instanceId;
             windowData.Occupancy = UnitInfoWindowControllerData.UnitOccupancy.Draft;
-            ProjectContext.Instance.Container.Resolve<UIManager>().OpenWindow(WindowType.UnitInfo, windowData);
+            ProjectContext.Instance.Container.Resolve<IUIManager>().OpenWindow(WindowType.UnitInfo, windowData);
         }
     }
 }

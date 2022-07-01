@@ -25,7 +25,7 @@ public class MapEntryBattleSetupService : IMapEntryBattleSetupService
     {
         _cachedEntry = entry;
         _cachedPlayerArmy = ProjectContext.Instance.Container.Resolve<IPlayerDataService>().GetArmyData();
-        ProjectContext.Instance.Container.Resolve<UIManager>().OpenWindow(WindowType.FightLobby, new FightLobbyWindowData()
+        ProjectContext.Instance.Container.Resolve<IUIManager>().OpenWindow(WindowType.FightLobby, new FightLobbyWindowData()
         {
             AllyArmy = _cachedPlayerArmy,
             EnemyArmy = entry.Garrison,
@@ -50,18 +50,18 @@ public class MapEntryBattleSetupService : IMapEntryBattleSetupService
     {
         _cachedResult = result;
         _cachedReward = ProjectContext.Instance.Container.Resolve<IGameMapService>().CommitEntryBattleResult(_cachedEntry.EntryId, _cachedResult);
-        ProjectContext.Instance.Container.Resolve<UIManager>().OpenWindow(WindowType.BattleResult, new BattleResultWindowData(_cachedResult, OnBattleResultViewed));
+        ProjectContext.Instance.Container.Resolve<IUIManager>().OpenWindow(WindowType.BattleResult, new BattleResultWindowData(_cachedResult, OnBattleResultViewed));
         Debug.Log(result.Ally.SurvivedArmy.ArmyForceRating);
     }
 
     private void OnBattleResultViewed()
     {
-        ProjectContext.Instance.Container.Resolve<UIManager>().OpenWindow(WindowType.ClaimReward, new ClaimRewardWindowData(_cachedReward, OnRewardClaimed));
+        ProjectContext.Instance.Container.Resolve<IUIManager>().OpenWindow(WindowType.ClaimReward, new ClaimRewardWindowData(_cachedReward, OnRewardClaimed));
     }
 
     private void OnRewardClaimed()
     {
-        ProjectContext.Instance.Container.Resolve<UIManager>().CloseWindow(WindowType.FightLobby);
-        ProjectContext.Instance.Container.Resolve<UIManager>().CloseWindow(WindowType.GameMapEntryDialog);
+        ProjectContext.Instance.Container.Resolve<IUIManager>().CloseWindow(WindowType.FightLobby);
+        ProjectContext.Instance.Container.Resolve<IUIManager>().CloseWindow(WindowType.GameMapEntryDialog);
     }
 }

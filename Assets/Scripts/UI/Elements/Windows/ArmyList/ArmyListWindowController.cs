@@ -26,7 +26,7 @@ namespace Assets.Scripts.UI
 
         private void OnSquadSelected(HeroData hero)
         {
-            ProjectContext.Instance.Container.Resolve<UIManager>().OpenWindow(WindowType.SquadInfo, hero.ID);
+            ProjectContext.Instance.Container.Resolve<IUIManager>().OpenWindow(WindowType.SquadInfo, hero.ID);
         }
     }
 }

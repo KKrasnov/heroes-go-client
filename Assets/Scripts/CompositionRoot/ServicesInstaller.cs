@@ -11,7 +11,7 @@ public class ServicesInstaller : Installer<ServicesInstaller>
         Container.Bind<IMapEntryBattleSetupService>().To<MapEntryBattleSetupService>().AsSingle();
         Container.Bind<IFastBattleService>().To<AutomaticBattleService>().AsSingle();
         Container.Bind<IManualBattleService>().To<ManualBattleService>().AsSingle();
-        Container.Bind<UIManager>().ToSelf().AsSingle();
+        Container.Bind<IUIManager>().To<UIManager>().AsSingle();
         Container.Bind<IPlayerDataService>().To<MockPlayerDataService>().AsSingle();
         Container.Bind<IGameMapService>().To<MockGameMapService>().AsSingle();
         Container.Bind<IUnitsConfigurationService>().To<MockUnitsConfigurationService>().AsSingle();

@@ -38,14 +38,14 @@ namespace Assets.Scripts.UI
 
         private void OnUnitMovedToDraftHandler()
         {
-            ProjectContext.Instance.Container.Resolve<UIManager>().CloseWindow(this);
+            ProjectContext.Instance.Container.Resolve<IUIManager>().CloseWindow(this);
             if (_windowData.OnViewed != null)
                 _windowData.OnViewed(true);
         }
 
         private void OnUnitDismissedHandler()
         {
-            ProjectContext.Instance.Container.Resolve<UIManager>().CloseWindow(this);
+            ProjectContext.Instance.Container.Resolve<IUIManager>().CloseWindow(this);
             if (_windowData.OnViewed != null)
                 _windowData.OnViewed(true);
         }

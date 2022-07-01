@@ -16,7 +16,7 @@ namespace Assets.Scripts.UI
 
         private void OpenArmyClickHandler()
         {
-            ProjectContext.Instance.Container.Resolve<UIManager>().OpenWindow(WindowType.ArmyList);
+            ProjectContext.Instance.Container.Resolve<IUIManager>().OpenWindow(WindowType.ArmyList);
         }
     }
 }
